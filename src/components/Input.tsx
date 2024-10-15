@@ -2,12 +2,7 @@ import { isAdminError } from "@/real-time/context/signals";
 import { cn } from "@/lib/utils";
 import { useSignals } from "@preact/signals-react/runtime";
 import { ReactNode, useState } from "react";
-import {
-  FieldErrors,
-  FieldValues,
-  RegisterOptions,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldErrors, RegisterOptions, UseFormRegister } from "react-hook-form";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { BsFillEyeFill } from "react-icons/bs";
 import { IoCloseSharp } from "react-icons/io5";
@@ -17,7 +12,7 @@ interface props {
   id: string;
   disabled?: boolean;
   options?: RegisterOptions;
-  register?: UseFormRegister<FieldValues>;
+  register?: UseFormRegister<any>;
   value?: string;
   errors?: FieldErrors;
   type?: string;

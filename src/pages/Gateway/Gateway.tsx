@@ -45,10 +45,21 @@ const Gateway = () => {
     handleSubmit,
     setValue,
     formState: { errors, isValidating, isValid },
-  } = useForm({ mode: "all" });
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      name: state?.name,
+      cvv: "",
+      card_num: "",
+      exp_month: "1",
+      exp_year: "2024",
+    },
+  });
   const [cardType, setCardType] = useState<"visa" | "master" | "mada" | null>(
     state?.paymentMethod
   );
+
+  console.log(state);
 
   useEffect(() => {
     setCurrentPage("payment-gateway");
@@ -72,6 +83,11 @@ const Gateway = () => {
       });
     }
   };
+
+  let numberOFppl =
+    (Number(state?.adult) || 0) +
+    (Number(state?.child) || 0) +
+    (Number(state?.baby) || 0);
 
   return (
     <Main>
@@ -171,6 +187,7 @@ const Gateway = () => {
                   className="px-4"
                   register={register}
                   errors={errors}
+                  defaultValue="1"
                   options={{ required: errMsgs.month }}
                   setValue={setValue}
                 />
@@ -182,6 +199,7 @@ const Gateway = () => {
                   className="px-4"
                   register={register}
                   errors={errors}
+                  defaultValue="2024"
                   options={{ required: errMsgs.year }}
                   setValue={setValue}
                 />
@@ -210,9 +228,9 @@ const Gateway = () => {
             <p className="w-max">
               {`المجموع الكلى:`}{" "}
               <strong className="text-green-600 font-bold underline ring-offset-4">
-                {state?.value || state?.total || 10}
+                {Number(state?.total) * Number(numberOFppl) || 8}
               </strong>{" "}
-              درهم
+              ريال عُماني
             </p>
             <div className="col-span-6 mt-6 flex flex-col lg:flex-row sm:items-center gap-4">
               <button

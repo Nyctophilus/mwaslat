@@ -168,11 +168,15 @@ export const CustomSelect = ({
   errors,
   options = {},
   sels,
+  defaultValue,
   setValue,
 }: CustomSelectProps) => (
   <div>
     {label && <Label label={label} id={id} className={"text-main"} />}
-    <Select onValueChange={(selected) => setValue && setValue(id, selected)}>
+    <Select
+      defaultValue={defaultValue}
+      onValueChange={(selected) => setValue && setValue(id, selected)}
+    >
       <SelectTrigger
         className={cn(
           errors[id] ? "border-red-500" : "border-gray-300 bg-gray-100",
@@ -185,6 +189,7 @@ export const CustomSelect = ({
           placeholder={placeholder || `يرجى أختيار ${label}...`}
           id={id}
           {...register(id, options)}
+          defaultValue={defaultValue}
         />
       </SelectTrigger>
       <SelectContent className="flex">

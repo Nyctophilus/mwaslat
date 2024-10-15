@@ -1,12 +1,7 @@
 import { useState } from "react";
 import Label from "@/components/ui/label";
 import { CreditCard, CheckCircle2, XCircle } from "lucide-react";
-import {
-  FieldErrors,
-  FieldValues,
-  RegisterOptions,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldErrors, RegisterOptions, UseFormRegister } from "react-hook-form";
 import { cn } from "@/lib/utils";
 
 interface props {
@@ -14,7 +9,7 @@ interface props {
   id: string;
   disabled?: boolean;
   options?: RegisterOptions;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<any>;
   errors: FieldErrors;
   type?: string;
   placeholder?: string;

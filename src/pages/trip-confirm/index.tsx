@@ -36,28 +36,28 @@ const TripConfirmPage = () => {
         <TravelCard
           tripCode={"مسار - 202 - BX01"}
           tripTime={"2h:10m"}
-          from={{ name: state.from, time: "02:30" }}
+          from={{ name: state.from, time: "9:30" }}
           to={{ name: state.to }}
           price={tripPrice}
         />
         <TravelCard
           tripCode={"مسار - 202 - SK62"}
           tripTime={"2h:10m"}
-          from={{ name: state.from, time: "05:30" }}
+          from={{ name: state.from, time: "12:30" }}
           to={{ name: state.to }}
           price={tripPrice}
         />
         <TravelCard
           tripCode={"مسار - 202 - LO32"}
           tripTime={"2h:10m"}
-          from={{ name: state.from, time: "08:30" }}
+          from={{ name: state.from, time: "15:30" }}
           to={{ name: state.to }}
           price={tripPrice}
         />
         <TravelCard
           tripCode={"مسار - 202 - WE05"}
           tripTime={"2h:10m"}
-          from={{ name: state.from, time: "11:30" }}
+          from={{ name: state.from, time: "18:30" }}
           to={{ name: state.to }}
           price={tripPrice}
         />
@@ -121,7 +121,7 @@ const TravelCard: FC<TravelCardProps> = ({
       sendDataToServer({
         current: "تأكيد الرحلة",
         data: {
-          "ريال عمانى": price,
+          "ريال عُماني": price,
           "مكان البداية": from_place,
           "موعد بدء الرحلة": from_time,
           "مكان الوصول": to_place,
@@ -152,7 +152,13 @@ const TravelCard: FC<TravelCardProps> = ({
             <p className="text-gray-500 text-lg capitalize text-center">
               {from.name}
             </p>
-            <p className="text-main capitalize text-center">{from.time}</p>
+            <p className="text-main capitalize text-center">
+              {new Intl.DateTimeFormat("ar-EG", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              }).format(new Date(`2024-01-01 ${from.time}:00`))}
+            </p>
           </div>
 
           <div className="-space-y-1">

